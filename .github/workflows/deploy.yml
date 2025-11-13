@@ -1,0 +1,68 @@
+name: Build and Deploy to GitHub Pages
+
+# Déclenchement du workflow
+on:
+  push:
+    branches:
+      - master  # Déclenché à chaque push sur la branche master
+  workflow_dispatch:  # Permet de déclencher manuellement depuis l'interface GitHub
+
+# Permissions nécessaires pour déployer sur GitHub Pages
+permissions:
+  contents: write  # Pour écrire sur la branche gh-pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Récupérer le code du repository
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Nécessaire pour gh-pages
+
+      # 2. Configurer Node.js
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'  # Cache les dépendances yarn pour accélérer
+
+      # 3. Installer les dépendances
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # 4. Vérifier TypeScript (pas d'erreurs de type)
+      - name: 🔍 TypeScript Check
+        run: yarn test:typecheck
+        continue-on-error: false  # Stoppe si erreurs TypeScript
+
+      # 5. Vérifier ESLint (qualité du code)
+      - name: ✨ Lint Check
+        run: yarn test:code
+        continue-on-error: true  # Continue même si warnings ESLint (ne bloque pas)
+
+      # 6. Builder l'application
+      - name: 🏗️ Build Application
+        run: yarn build
+        env:
+          NODE_ENV: production
+
+      # 7. Déployer sur GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./excalidraw-app/build
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '🚀 Deploy from ${{ github.sha }}'
+
+      # 8. Afficher un message de succès
+      - name: ✅ Deployment Complete
+        run: |
+          echo "🎉 Deployment successful!"
+          echo "🌐 Site URL: https://pierrre2db.github.io/excalidraw/"
+          echo "📝 Commit: ${{ github.sha }}"

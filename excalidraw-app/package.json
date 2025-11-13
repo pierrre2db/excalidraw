@@ -2,7 +2,7 @@
   "name": "excalidraw-app",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://pierrre2db.github.io/excalidraw",
   "browserslist": {
     "production": [
       ">0.2%",
