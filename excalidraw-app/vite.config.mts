@@ -199,10 +199,10 @@ export default defineConfig(({ mode }) => {
           ],
         },
         manifest: {
-          short_name: "Excalidraw",
-          name: "Excalidraw",
+          short_name: "StratAI",
+          name: "StratAI Whiteboard",
           description:
-            "Excalidraw is a whiteboard tool that lets you easily sketch diagrams that have a hand-drawn feel to them.",
+            "StratAI's customized version of Excalidraw - A whiteboard tool for sketching diagrams with a hand-drawn feel.",
           icons: [
             {
               src: "android-chrome-192x192.png",
@@ -225,8 +225,8 @@ export default defineConfig(({ mode }) => {
               type: "image/png",
             },
           ],
-          start_url: "/",
-          id: "excalidraw",
+          start_url: "/excalidraw/",
+          id: "stratai-whiteboard",
           display: "standalone",
           theme_color: "#121212",
           background_color: "#ffffff",
