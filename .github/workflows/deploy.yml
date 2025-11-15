@@ -48,6 +48,7 @@ jobs:
         run: yarn build
         env:
           NODE_ENV: production
+          VITE_GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_DRIVE_CLIENT_ID }}
 
       # 7. Déployer sur GitHub Pages
       - name: 🚀 Deploy to GitHub Pages
