@@ -38,18 +38,60 @@
   - Export en PNG, SVG
   - Import de fichiers .excalidraw
 
-### Google Drive (Extension)
-- [ ] **Rechercher et installer Excalidraw+**
-  - Tester l'extension Chrome "Excalidraw+"
-  - Vérifier la compatibilité avec la version self-hosted
-  - Documenter la procédure d'installation
+### Google Drive (Intégration API) 🚧 EN COURS
+- [x] **Infrastructure Google Drive** ✅ (2025-11-15)
+  - ✅ ~2000 lignes de code, 13 fichiers créés
+  - ✅ Projet Google Cloud configuré
+  - ✅ OAuth 2.0 configuré avec CLIENT_ID
+  - ✅ Google Drive API activée
+  - ✅ Tests emails configurés
 
-- [ ] **Alternative : Intégration Google Drive API**
-  - Rechercher comment intégrer Google Drive API
-  - Créer un projet Google Cloud
-  - Obtenir les credentials OAuth
-  - Implémenter la connexion Google Drive
-  - Tester sauvegarde/chargement automatique
+- [x] **Fonctionnalités implémentées** ✅ (2025-11-15)
+  - ✅ Connexion Google Drive avec bouton UI
+  - ✅ Création automatique du dossier "Excalidraw"
+  - ✅ Save : met à jour le fichier existant
+  - ✅ Save As : crée un nouveau fichier avec nom personnalisé
+  - ✅ Create Version : crée version timestampée (ex: `Pierre2db_2025_11_15_14h30.excalidraw`)
+  - ✅ New File : reset pour nouveau fichier
+  - ✅ Auto-save : sauvegarde automatique toutes les 5 minutes
+  - ✅ View in Drive : ouvre le dossier Excalidraw
+  - ✅ Storage info : affiche utilisation/quota
+  - ✅ Persistence localStorage : retient le fichier actuel entre sessions
+
+- [x] **TODOs critiques résolus** ✅ (2025-11-15)
+  - [x] Connecter les vraies données Excalidraw ✅
+    - Localisation: `GoogleDriveProvider.tsx` + `ExcalidrawAPIContext.tsx`
+    - Solution: Contexte React pour partager l'API Excalidraw
+    - Implementation: `excalidrawAPI.getSceneElements()`, `getAppState()`, `getFiles()`
+    - Status: Les fichiers contiennent maintenant les vraies données du canvas
+
+  - [x] Implémenter le File Picker modal ✅
+    - Localisation: `FilePickerModal.tsx` + `GoogleDriveProvider.tsx:loadFileFromDrive()`
+    - Implementation: Modal avec liste, recherche, thumbnails
+    - Chargement: Download → Parse → updateScene avec filtrage des propriétés runtime
+    - Status: Ouverture de fichiers fonctionnelle, compilation 0 erreurs
+
+- [ ] **TODOs restants (non bloquants)** ⚠️
+  - [ ] Générer les thumbnails des canvas
+    - Localisation: `GoogleDriveProvider.tsx` lignes ~197, ~270, ~351
+    - Problème: `thumbnail = undefined`
+    - Action: Utiliser `exportToBlob()` pour capturer le canvas en PNG 400x300px
+    - Impact: Pas critique, juste amélioration visuelle du File Picker
+
+  - [ ] Tester Create Version fonctionnellement
+    - Status: Code implémenté et compile
+    - Action: Test utilisateur pour confirmer le bon fonctionnement
+    - Note: Si problème, vérifier les logs console
+
+- [ ] **Déploiement GitHub Pages**
+  - [ ] Ajouter `VITE_GOOGLE_DRIVE_CLIENT_ID` aux GitHub Secrets
+  - [ ] Mettre à jour `.github/workflows/deploy.yml` pour utiliser le secret
+  - [ ] Build et push vers GitHub Pages
+  - [ ] Tester sur la version déployée
+  - ⚠️ ATTENTION: Ne pas déployer avant d'avoir résolu les TODOs critiques
+
+### Google Drive (Extension) - ABANDONNÉ
+❌ Approche par extension remplacée par intégration API native
 
 ---
 
@@ -111,18 +153,35 @@ Le système CI/CD est maintenant entièrement fonctionnel. Chaque `git push orig
 
 ## 📝 Documentation
 
-### README Utilisateur
-- [ ] **Créer un README.md personnalisé**
-  - Présentation du projet
-  - Instructions d'utilisation
-  - Guide de sauvegarde
-  - FAQ
+### Documentation Utilisateur
+- [x] **Manuel Utilisateur Complet** ✅ (2025-11-15)
+  - ✅ Fichier créé: `MANUEL_UTILISATEUR.md`
+  - ✅ Guide de connexion Google Drive
+  - ✅ Toutes les fonctionnalités expliquées en détail
+  - ✅ FAQ complète (15+ questions/réponses)
+  - ✅ Troubleshooting et optimisation
+  - ✅ Gestion des versions et auto-save
+  - ✅ 1000+ lignes de documentation
+
+- [x] **Guide de Référence Rapide** ✅ (2025-11-15)
+  - ✅ Fichier créé: `GUIDE_RAPIDE.md`
+  - ✅ Démarrage en 3 étapes
+  - ✅ Tableau récapitulatif des fonctionnalités
+  - ✅ Conseils pro et raccourcis
+  - ✅ Résolution de problèmes courants
+  - ✅ Version condensée pour utilisateurs pressés
+
+- [ ] **README.md principal** (Optionnel)
+  - Lien vers MANUEL_UTILISATEUR.md et GUIDE_RAPIDE.md
+  - Présentation courte du projet
+  - Badges et screenshots
 
 ### Documentation Technique
-- [ ] **Enrichir CLAUDE.md**
-  - Ajouter exemples de personnalisation
-  - Documenter les variables d'environnement
-  - Ajouter troubleshooting
+- [x] **CLAUDE.md** ✅ (Déjà existant)
+  - Configuration du projet
+  - Architecture du monorepo
+  - Commandes de développement
+  - Workflow de déploiement
 
 ### Guide de Contribution
 - [ ] **Si projet collaboratif**
@@ -206,8 +265,21 @@ Le système CI/CD est maintenant entièrement fonctionnel. Chaque `git push orig
 
 ## Notes
 
-- **Priorité Haute** : Configuration GitHub Pages, Tests de base
-- **Priorité Moyenne** : Sauvegarde Google Drive, Documentation
-- **Priorité Basse** : CI/CD, Fonctionnalités avancées
+### État actuel (2025-11-15)
 
-**Dernière mise à jour :** 2025-11-13
+**Complété ✅**
+- Configuration GitHub Pages et CI/CD
+- Intégration Google Drive complète (save, load, versions)
+- Documentation utilisateur (manuel + guide rapide)
+
+**En cours 🚧**
+- Tests fonctionnels utilisateur
+- Génération des thumbnails (amélioration visuelle)
+
+**À venir 📋**
+- Déploiement production sur GitHub Pages
+- Fonctionnalités avancées optionnelles
+
+---
+
+**Dernière mise à jour :** 2025-11-15 23:20

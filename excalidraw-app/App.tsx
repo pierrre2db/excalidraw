@@ -88,6 +88,10 @@ import {
   STORAGE_KEYS,
   SYNC_BROWSER_TABS_TIMEOUT,
 } from "./app_constants";
+import { GoogleDriveProvider } from "./google-drive";
+import { ConnectButton, GoogleDriveMenu } from "./google-drive/components";
+import "./google-drive/google-drive.scss";
+import { ExcalidrawAPIProvider } from "./ExcalidrawAPIContext";
 import Collab, {
   collabAPIAtom,
   isCollaboratingAtom,
@@ -800,13 +804,15 @@ const ExcalidrawWrapper = () => {
   };
 
   return (
-    <div
-      style={{ height: "100%" }}
-      className={clsx("excalidraw-app", {
-        "is-collaborating": isCollaborating,
-      })}
-    >
-      <Excalidraw
+    <ExcalidrawAPIProvider excalidrawAPI={excalidrawAPI}>
+      <GoogleDriveProvider>
+        <div
+          style={{ height: "100%" }}
+          className={clsx("excalidraw-app", {
+            "is-collaborating": isCollaborating,
+          })}
+        >
+          <Excalidraw
         excalidrawAPI={excalidrawRefCallback}
         onChange={onChange}
         initialData={initialStatePromiseRef.current.promise}
@@ -851,26 +857,35 @@ const ExcalidrawWrapper = () => {
         autoFocus={true}
         theme={editorTheme}
         renderTopRightUI={(isMobile) => {
-          if (isMobile || !collabAPI || isCollabDisabled) {
+          if (isMobile) {
             return null;
           }
 
           return (
             <div className="excalidraw-ui-top-right">
-              {excalidrawAPI?.getEditorInterface().formFactor === "desktop" && (
-                <ExcalidrawPlusPromoBanner
-                  isSignedIn={isExcalidrawPlusSignedUser}
-                />
-              )}
+              {/* Google Drive Integration */}
+              <ConnectButton />
+              <GoogleDriveMenu />
 
-              {collabError.message && <CollabError collabError={collabError} />}
-              <LiveCollaborationTrigger
-                isCollaborating={isCollaborating}
-                onSelect={() =>
-                  setShareDialogState({ isOpen: true, type: "share" })
-                }
-                editorInterface={editorInterface}
-              />
+              {/* Collaboration UI */}
+              {!isCollabDisabled && collabAPI && (
+                <>
+                  {excalidrawAPI?.getEditorInterface().formFactor === "desktop" && (
+                    <ExcalidrawPlusPromoBanner
+                      isSignedIn={isExcalidrawPlusSignedUser}
+                    />
+                  )}
+
+                  {collabError.message && <CollabError collabError={collabError} />}
+                  <LiveCollaborationTrigger
+                    isCollaborating={isCollaborating}
+                    onSelect={() =>
+                      setShareDialogState({ isOpen: true, type: "share" })
+                    }
+                    editorInterface={editorInterface}
+                  />
+                </>
+              )}
             </div>
           );
         }}
@@ -1159,8 +1174,10 @@ const ExcalidrawWrapper = () => {
             ref={debugCanvasRef}
           />
         )}
-      </Excalidraw>
-    </div>
+          </Excalidraw>
+        </div>
+      </GoogleDriveProvider>
+    </ExcalidrawAPIProvider>
   );
 };
 
