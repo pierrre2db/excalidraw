@@ -48,7 +48,12 @@ jobs:
         run: yarn build
         env:
           NODE_ENV: production
+          MODE: production
           VITE_GOOGLE_DRIVE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_DRIVE_CLIENT_ID }}
+          # Collaboration WebSocket server
+          VITE_APP_WS_SERVER_URL: https://oss-collab.excalidraw.com
+          # Firebase config for collaboration
+          VITE_APP_FIREBASE_CONFIG: '{"apiKey":"AIzaSyAd15pYlMci_xIp9ko6wkEsDzAAA0Dn0RU","authDomain":"excalidraw-room-persistence.firebaseapp.com","databaseURL":"https://excalidraw-room-persistence.firebaseio.com","projectId":"excalidraw-room-persistence","storageBucket":"excalidraw-room-persistence.appspot.com","messagingSenderId":"654800341332","appId":"1:654800341332:web:4a692de832b55bd57ce0c1"}'
 
       # 7. Déployer sur GitHub Pages
       - name: 🚀 Deploy to GitHub Pages
