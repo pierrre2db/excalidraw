@@ -22,6 +22,16 @@ export default defineConfig(({ mode }) => {
     // We need to specify the envDir since now there are no
     //more located in parallel with the vite.config.ts file but in parent dir
     envDir: "../",
+    // Explicitly define environment variables to expose them to the client
+    // This ensures variables from GitHub Actions env are also injected
+    define: {
+      'import.meta.env.VITE_APP_WS_SERVER_URL': JSON.stringify(
+        process.env.VITE_APP_WS_SERVER_URL || envVars.VITE_APP_WS_SERVER_URL
+      ),
+      'import.meta.env.VITE_APP_FIREBASE_CONFIG': JSON.stringify(
+        process.env.VITE_APP_FIREBASE_CONFIG || envVars.VITE_APP_FIREBASE_CONFIG
+      ),
+    },
     resolve: {
       alias: [
         {
