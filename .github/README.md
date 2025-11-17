@@ -78,4 +78,56 @@ Pour voir la configuration détaillée de nos workflows custom, consultez :
 
 ---
 
+## 🔑 Configuration Google Drive OAuth
+
+### Prérequis
+
+Pour utiliser l'intégration Google Drive dans l'application Excalidraw déployée, vous devez configurer un Client OAuth 2.0 dans Google Cloud Console.
+
+### Étapes de configuration
+
+#### 1. Créer un projet Google Cloud (si nécessaire)
+
+1. Allez sur [Google Cloud Console](https://console.cloud.google.com/)
+2. Créez un nouveau projet ou sélectionnez un projet existant
+3. Activez l'API Google Drive pour votre projet
+
+#### 2. Configurer le Client OAuth 2.0
+
+1. Allez dans **API & Services** > **Identifiants**
+2. Cliquez sur **Créer des identifiants** > **ID client OAuth 2.0**
+3. Sélectionnez le type d'application : **Application Web**
+4. Donnez un nom à votre client (ex: "Excalidraw GitHub Pages")
+5. Ajoutez l'origine JavaScript autorisée :
+   ```
+   https://pierrre2db.github.io
+   ```
+6. Cliquez sur **Créer**
+7. Notez le **Client ID** généré (format: `XXXXXXXXX-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com`)
+
+#### 3. Configurer le secret GitHub
+
+1. Allez dans les **Settings** de votre repository GitHub
+2. Sélectionnez **Secrets and variables** > **Actions**
+3. Créez ou mettez à jour le secret `VITE_GOOGLE_DRIVE_CLIENT_ID` avec votre Client ID
+
+#### 4. Déclencher un nouveau déploiement
+
+- Poussez un nouveau commit sur `main`, ou
+- Déclenchez manuellement le workflow "Build and Deploy to GitHub Pages"
+
+### Vérification
+
+1. Accédez à votre application déployée : `https://pierrre2db.github.io/excalidraw/`
+2. Cliquez sur le bouton **Connect Google Drive** en haut à droite
+3. Une popup d'authentification Google devrait s'ouvrir
+4. Autorisez l'accès à Google Drive
+5. Vous pouvez maintenant sauvegarder et charger vos dessins depuis Google Drive
+
+### ⚠️ Important
+
+- Le Client ID doit être configuré avec l'origine **exacte** : `https://pierrre2db.github.io` (sans sous-chemin)
+- L'application demande uniquement l'accès aux fichiers créés par elle-même (scope `drive.file`)
+- Pour les tests en local, vous devrez ajouter `http://localhost:3000` aux origines autorisées
+
 **Dernière mise à jour :** 2025-11-13
