@@ -229,10 +229,36 @@ Le système CI/CD est maintenant entièrement fonctionnel. Chaque `git push orig
 ## 🚀 Fonctionnalités Avancées (Long Terme)
 
 ### Collaboration
-- [ ] **Configurer le serveur de collaboration**
-  - Étudier excalidraw-room (backend)
-  - Déployer sur service cloud (Heroku, Railway, etc.)
-  - Connecter l'app au serveur
+
+#### ⚠️ Collaboration en temps réel NON IMPLÉMENTÉE (2025-11-19)
+
+**Raison : Coût récurrent**
+- La collaboration en temps réel nécessite un serveur backend Node.js (excalidraw-room)
+- GitHub Pages = hébergement statique uniquement (pas de serveur)
+- Coût serveur backend : **5-7$/mois minimum** (Railway, Render, etc.)
+- Pour un usage occasionnel, le coût n'est pas justifié
+
+**Solution alternative documentée : ✅ WORKAROUND GRATUIT**
+- [x] **Documentation workaround créée** ✅ (2025-11-19)
+  - Fichier : `COLLABORATION_WORKAROUND.md`
+  - Workflow : excalidraw.com (collaboration) → export → import dans version self-hosted
+  - Schémas explicatifs inclus
+  - Guide pas-à-pas complet
+  - FAQ et cas d'usage
+  - **Coût : 0$/mois** ✅
+
+**Si implémentation serveur collaboration souhaitée plus tard :**
+- [ ] **Configurer le serveur de collaboration** (Optionnel - Payant)
+  - Voir documentation complète : `COLLABORATION_GUIDE.md` (à créer si besoin)
+  - Coût estimé : 5-7$/mois (60-84$/an)
+  - Étapes :
+    - Créer compte Railway ou Render
+    - Déployer excalidraw/excalidraw-room
+    - Configurer variable VITE_APP_COLLAB_SERVER_URL
+    - Ajouter secret GitHub
+    - Rebuild et déployer
+  - Temps estimé : 30-45 minutes
+  - **Ne faire que si usage intensif justifie le coût**
 
 ### Intégrations
 - [ ] **Intégrations tierces**
@@ -293,5 +319,14 @@ Le système CI/CD est maintenant entièrement fonctionnel. Chaque `git push orig
 
 ---
 
-**Dernière mise à jour :** 2025-11-15 23:45
+**Dernière mise à jour :** 2025-11-19
 **Status :** ✅ **PRODUCTION READY**
+
+### Mise à jour 2025-11-19
+
+**Documentation collaboration ajoutée ✅**
+- Fichier `COLLABORATION_WORKAROUND.md` créé
+- Explique pourquoi la collaboration temps réel n'est pas implémentée (coût serveur)
+- Workaround documenté : excalidraw.com → export → import
+- Schémas et guide pas-à-pas inclus
+- Solution gratuite et fonctionnelle pour collaboration occasionnelle

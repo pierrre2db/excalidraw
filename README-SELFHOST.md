@@ -42,8 +42,13 @@ npx gh-pages -d excalidraw-app/build
 - ✅ Support multilingue
 - ✅ Mode sombre/clair
 - ✅ PWA (Progressive Web App)
-- ✅ Collaboration en temps réel (si serveur configuré)
-- ⏳ Intégration Google Drive (à venir)
+- ✅ **Intégration Google Drive complète**
+  - Sauvegarde dans le cloud
+  - Gestion des versions
+  - Auto-save toutes les 5 minutes
+  - File picker avec recherche
+- ⚠️ **Collaboration temps réel** : Non disponible (hébergement statique)
+  - Workaround gratuit documenté → Voir [COLLABORATION_WORKAROUND.md](./COLLABORATION_WORKAROUND.md)
 
 ## 🛠️ Commandes Utiles
 
@@ -78,11 +83,23 @@ Les fichiers suivants ont été modifiés pour le déploiement sur GitHub Pages 
 
 Voir [CLAUDE.md](./CLAUDE.md) pour plus de détails.
 
-## 📖 Documentation Complète
+## 📖 Documentation
 
-Pour une documentation complète sur la configuration, le développement et le déploiement, consultez :
+### Documentation Utilisateur
 
-👉 **[CLAUDE.md](./CLAUDE.md)** - Guide complet du projet
+- **[MANUEL_UTILISATEUR.md](./MANUEL_UTILISATEUR.md)** - Guide complet pour les utilisateurs
+  - Connexion Google Drive
+  - Sauvegarde et gestion des versions
+  - FAQ complète
+- **[GUIDE_RAPIDE.md](./GUIDE_RAPIDE.md)** - Guide de démarrage rapide
+- **[COLLABORATION_WORKAROUND.md](./COLLABORATION_WORKAROUND.md)** - Comment collaborer en temps réel (workaround gratuit)
+
+### Documentation Développeur
+
+- **[CLAUDE.md](./CLAUDE.md)** - Guide complet de configuration et développement
+- **[INSTRUCTIONS_DEVELOPPEUR.md](./INSTRUCTIONS_DEVELOPPEUR.md)** - Instructions pour les développeurs
+- **[DEV_LOG.md](./DEV_LOG.md)** - Journal chronologique des modifications
+- **[TODO.md](./TODO.md)** - Liste des tâches à faire
 
 ## 🔗 Liens
 
@@ -97,4 +114,5 @@ Ce projet est basé sur [Excalidraw](https://github.com/excalidraw/excalidraw), 
 
 ---
 
-**Dernière mise à jour:** 2025-11-13
+**Dernière mise à jour:** 2025-11-19
+**Nouvelles fonctionnalités:** Documentation collaboration temps réel (workaround gratuit)

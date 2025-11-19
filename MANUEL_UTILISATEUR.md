@@ -1,8 +1,8 @@
 # Manuel Utilisateur - Excalidraw avec Google Drive
 
-**Version:** 1.0
-**Date:** 15 Novembre 2025
-**Nouvelles fonctionnalités:** Intégration Google Drive complète
+**Version:** 1.1
+**Date:** 19 Novembre 2025
+**Nouvelles fonctionnalités:** Intégration Google Drive complète + Workaround collaboration temps réel
 
 ---
 
@@ -318,6 +318,31 @@ Usage: 15.3%
 - ✅ Lors de "Create Version"
 
 Ce n'est **pas** une collaboration en temps réel comme Google Docs.
+
+### Peut-on collaborer en temps réel avec plusieurs personnes ?
+
+⚠️ **La collaboration en temps réel n'est PAS disponible dans cette version.**
+
+**Pourquoi ?**
+- Cette version est hébergée sur GitHub Pages (hébergement statique)
+- La collaboration temps réel nécessite un serveur backend (coût: 5-7$/mois)
+- Pour un usage occasionnel, le coût n'est pas justifié
+
+**✅ Solution gratuite disponible :**
+
+Nous avons documenté un **workaround complet** qui vous permet de collaborer en temps réel :
+
+1. Aller sur https://excalidraw.com (version officielle)
+2. Créer une session collaborative
+3. Travailler ensemble en temps réel ✅
+4. Exporter le fichier (.excalidraw)
+5. Importer dans cette version (pierrre2db.github.io/excalidraw)
+6. Sauvegarder dans Google Drive
+
+**📚 Guide complet avec schémas :** Voir `COLLABORATION_WORKAROUND.md`
+
+**Temps nécessaire :** 2-3 minutes pour export/import
+**Coût :** Gratuit (0$/mois)
 
 ### Puis-je restaurer une ancienne version ?
 
